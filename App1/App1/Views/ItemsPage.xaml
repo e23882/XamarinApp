@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.Views.ItemsPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:App1.ViewModels"  
+             xmlns:model="clr-namespace:App1.Models"  
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"  
+             x:Name="BrowseItemsPage">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <StackLayout Orientation="Vertical" Grid.Column="1">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="ID"/>
+                <Entry Text="{Binding ID}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Text"/>
+                <Entry Text="{Binding Text}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Description"/>
+                <Entry Text="{Binding Description}"/>
+            </StackLayout>
+            <Button Text="READ SQL" Command="{Binding ReadSQLCommand}"/>
+        </StackLayout>
+        <dg:DataGrid 
+            ItemsSource="{Binding Items}" 
+            Grid.Column="2" 
+            BorderColor="#CCCCCC"
+            ActiveRowColor="#8899AA"
+            RowHeight="70" 
+            HeaderHeight="50"
+            SelectionEnabled="True"
+            SelectedItem="{Binding SelectedItem}">
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn Title="ID"  PropertyName="ID"/>
+                <dg:DataGridColumn Title="Text" PropertyName="Text"/>
+                <dg:DataGridColumn Title="Description" PropertyName="Description"/>
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+    </Grid>
+        
+</ContentPage>

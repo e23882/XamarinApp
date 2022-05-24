@@ -1,10 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="App1.Views.ItemsPage"
              Title="{Binding Title}"
              xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"  
-             x:Name="BrowseItemsPage">
+             x:Class="App1.Views.UsersPage" x:Name="page">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -27,14 +26,18 @@
             </Grid.ColumnDefinitions>
             <Label Text="ID" Grid.Row="1" Grid.Column="0"/>
             <Entry Text="{Binding ID}" Grid.Row="1" Grid.Column="1"/>
-            <Label Text="Text" Grid.Row="2" Grid.Column="0"/>
-            <Entry Text="{Binding Text}" Grid.Row="2" Grid.Column="1"/>
-            <Label Text="Description" Grid.Row="3" Grid.Column="0"/>
-            <Entry Text="{Binding Description}" Grid.Row="3" Grid.Column="1"/>
+            <Label Text="Name" Grid.Row="2" Grid.Column="0"/>
+            <Entry Text="{Binding Name}" Grid.Row="2" Grid.Column="1"/>
+            <Label Text="Age" Grid.Row="3" Grid.Column="0"/>
+            <Entry Text="{Binding Age}" Grid.Row="3" Grid.Column="1"/>
+
             <Button Text="READ SQL" Command="{Binding ReadSQLCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+            
+                
+
         </Grid>
         <dg:DataGrid 
-            ItemsSource="{Binding Items}" 
+            ItemsSource="{Binding Users}" 
             Grid.Column="2" 
             BorderColor="#CCCCCC"
             ActiveRowColor="#8899AA"
@@ -44,10 +47,9 @@
             SelectedItem="{Binding SelectedItem}">
             <dg:DataGrid.Columns>
                 <dg:DataGridColumn Title="ID"  PropertyName="ID"/>
-                <dg:DataGridColumn Title="Text" PropertyName="Text"/>
-                <dg:DataGridColumn Title="Description" PropertyName="Description"/>
+                <dg:DataGridColumn Title="Name" PropertyName="Name"/>
+                <dg:DataGridColumn Title="Age" PropertyName="Age"/>
             </dg:DataGrid.Columns>
         </dg:DataGrid>
     </Grid>
-        
 </ContentPage>

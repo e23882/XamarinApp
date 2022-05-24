@@ -68,4 +68,7 @@
     <FlyoutItem Title="Browse" Icon="icon_feed.png">
         <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
+    <FlyoutItem Title="Browse" Icon="icon_feed.png">
+        <ShellContent Route="UsersPage" ContentTemplate="{DataTemplate local:UsersPage}" />
+    </FlyoutItem>
 </Shell>

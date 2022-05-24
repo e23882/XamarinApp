@@ -5,26 +5,18 @@ using Xamarin.Forms.Xaml;
 namespace App1.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ItemsPage : ContentPage
+    public partial class UsersPage : ContentPage
     {
         #region Declarations
-        ItemsViewModel _viewModel;
+        UsersViewModel _viewModel;
         #endregion
 
         #region Memberfunction
-        public ItemsPage()
+        public UsersPage()
         {
             InitializeComponent();
-
-            BindingContext = _viewModel = new ItemsViewModel();
-        }
-
-        protected override void OnAppearing()
-        {
-            //base.OnAppearing();
-            //_viewModel.OnAppearing();
+            BindingContext = _viewModel = new UsersViewModel();
         }
         #endregion
-
     }
 }

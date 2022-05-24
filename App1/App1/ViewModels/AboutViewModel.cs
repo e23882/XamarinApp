@@ -23,7 +23,7 @@ namespace App1.ViewModels
                     await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
                     break;
                 case "B":
-                    await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
+                    await Shell.Current.GoToAsync($"//{nameof(UsersPage)}");
                     break;
 
             }

@@ -10,19 +10,20 @@ using Xamarin.Forms;
 
 namespace App1.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class UsersViewModel : BaseViewModel
     {
         #region Declarations
-        private Item _SelectedItem;
-        private string _ID;
-        private string _Text;
-        private string _Description;
+        private User _SelectedItem = new User();
+        private string _ID = string.Empty;
+        private int _Age ;
+        private string _Name = string.Empty;
         #endregion
 
         #region Property
 
-        public ObservableCollection<Item> Items { get; }
-        public Command ReadSQLCommand { get; }
+        public Command ReadSQLCommand { get; set; }
+        public ObservableCollection<User> Users { get; }
+
         public string ID
         {
             get
@@ -35,53 +36,56 @@ namespace App1.ViewModels
                 OnPropertyChanged();
             }
         }
-        public string Text
+
+        
+        public int Age
         {
             get
             {
-                return _Text;
+                return _Age;
             }
             set
             {
-                _Text = value;
+                _Age = value;
                 OnPropertyChanged();
             }
         }
-        public string Description
+
+        public string Name
         {
             get
             {
-                return _Description;
+                return _Name;
             }
             set
             {
-                _Description = value;
+                _Name = value;
                 OnPropertyChanged();
             }
         }
-        public Item SelectedItem
+        
+        public User SelectedItem 
         {
-            get
+            get 
             {
                 return _SelectedItem;
             }
-            set
+            set 
             {
-                _SelectedItem = value;
+                SelectedItem = value;
                 ID = value.ID;
-                Text = value.Text;
-                Description = value.Description;
+                Age = value.Age;
+                Name = value.Name;
                 OnPropertyChanged();
             }
         }
         #endregion
 
         #region Memberfunction
-
-        public ItemsViewModel()
+        public UsersViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Users = new ObservableCollection<User>();
             ReadSQLCommand = new Command(async () => await ExecuteReadSQLCommand());
         }
 
@@ -91,18 +95,18 @@ namespace App1.ViewModels
 
             try
             {
-                Items.Clear();
+                Users.Clear();
                 var dbData = ReadDBData();
                 foreach (var item in dbData)
                 {
-                    Items.Add(new Item
+                    Users.Add(new User
                     {
                         ID = item.ID.ToString(),
-                        Text = item.Text,
-                        Description = item.Description
+                        Name = item.Name,
+                        Age = item.Age
                     });
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -114,16 +118,23 @@ namespace App1.ViewModels
             }
         }
 
-        public List<Item> ReadDBData() 
+        public List<User> ReadDBData()
         {
-            List<Item> result = new List<Item>();
+            List<User> result = new List<User>();
             try
             {
                 string ConnectionString = @"Server=1.1.1.1;Database=TestDB;User Id=leo666;Password=leo666;";
                 using (var conn = new SqlConnection(ConnectionString))
                 {
-                    var sql = "SELECT ID, TEXT, DESCRIPTION FROM SAMPLE";
-                    result = conn.Query<Item>(sql).ToList();
+                    var sql = "SELECT [ID], [AGE], [NAME] FROM [dbo].[USER]";
+                    List<dynamic> tempResult = conn.Query(sql).ToList();
+                    foreach (dynamic item in tempResult)
+                    {
+                        User newUser = new User();
+                        newUser.ID = item.ID;
+                        newUser.Age = (int)item.AGE;
+                        newUser.Name = item.NAME;
+                    }
                 }
             }
             catch (Exception ex)
@@ -133,5 +144,6 @@ namespace App1.ViewModels
             return result;
         }
         #endregion
+
     }
 }

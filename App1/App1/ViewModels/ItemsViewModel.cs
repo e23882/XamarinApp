@@ -1,7 +1,11 @@
 ﻿using App1.Models;
+using Dapper;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -90,15 +94,17 @@ namespace App1.ViewModels
             try
             {
                 Items.Clear();
-                for (int i = 0; i < 10; i++)
+                var dbData = ReadDBData();
+                foreach (var item in dbData)
                 {
                     Items.Add(new Item
                     {
-                        ID = i.ToString(),
-                        Text = $"Data{i}",
-                        Description = $"Its data {i}"
+                        ID = item.ID.ToString(),
+                        Text = item.Text,
+                        Description = item.Description
                     });
                 }
+                
             }
             catch (Exception ex)
             {
@@ -108,6 +114,25 @@ namespace App1.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        public List<Item> ReadDBData() 
+        {
+            List<Item> result = new List<Item>();
+            try
+            {
+                string ConnectionString = @"Server=1.1.1.1;Database=TestDB;User Id=leo666;Password=leo666;";
+                using (var conn = new SqlConnection(ConnectionString))
+                {
+                    var sql = "SELECT ID, TEXT, DESCRIPTION FROM SAMPLE";
+                    result = conn.Query<Item>(sql).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                //log here
+            }
+            return result;
         }
         #endregion
     }
